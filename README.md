@@ -95,7 +95,7 @@ death-messages:
 
 ## Требования
 
-- Minecraft Paper 1.21+
+- Minecraft Paper 1.20+ (кроме 1.20.5)
 - Java 21
 
 ---
