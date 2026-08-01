@@ -1,282 +1,354 @@
-# Не изменяйте это значение!
-config-version: 1
+# Do not change this value!
+config-version: 2
 
 settings:
-  # Показывать координаты смерти игроку
+  # Show death coordinates to the player
   show-death-coordinates: true
-  # Показывать кнопку возврата к месту смерти
+  # Show the back-to-deathpoint button
   show-back-button: true
 
 messages:
   prefix: "<gray>[💀]</gray>"
   reload:
-    no-permission: "<red>У вас нет прав для этой команды!"
-    success: "<green>Конфиг DeathMessages перезагружен!"
-    usage: "<yellow>Использование: /deathmessages reload"
+    no-permission: "<red>You don't have permission to use this command!"
+    success: "<green>DeathMessages config reloaded!"
+    usage: "<yellow>Usage: /deathmessages reload"
   deathback:
-    invalid: "<red>Точка смерти не найдена!"
-    success: "<green>Вы были телепортированы к месту смерти!"
-  personal-message: "<red>Координаты смерти: <yellow>X: {x} Y: {y} Z: {z}"
-  back-button: "<green><bold>[✨ ВЕРНУТЬСЯ]</bold></green>"
-  back-hover: "<yellow>Нажмите чтобы вернуться к месту смерти"
+    invalid: "<red>Death point not found!"
+    success: "<green>You have been teleported to your death point!"
+  personal-message: "<red>Death coordinates: <yellow>X: {x} Y: {y} Z: {z}"
+  back-button: "<green><bold>[✨ BACK]</bold></green>"
+  back-hover: "<yellow>Click to return to your death point"
 
-# Сообщения о смерти игрока
+# Player death messages
 death-messages:
   prefix: "<gray>"
-  # Смерть от другого игрока
-  # Доступные плейсхолдеры: {player}, {killer}, {killer_health}
+  # Death by another player
+  # Available placeholders: {player}, {killer}, {killer_health}
   player:
-    - "⚔️ {player} был повержен игроком {killer} [<red>❤</red>{killer_health}]"
-    - "🎯 {player} пал от руки {killer} [<red>❤</red>{killer_health}]"
-    - "⚡ {player} был убит игроком {killer} [<red>❤</red>{killer_health}]"
-    - "💥 {player} проиграл дуэль против {killer} [<red>❤</red>{killer_health}]"
+    - "⚔️ {player} was slain by {killer} [<red>❤</red>{killer_health}]"
+    - "🎯 {player} fell to {killer} [<red>❤</red>{killer_health}]"
+    - "⚡ {player} was killed by {killer} [<red>❤</red>{killer_health}]"
+    - "💥 {player} lost a duel against {killer} [<red>❤</red>{killer_health}]"
 
-  # ОСНОВНОЙ МИР - Нейтральные и пассивные
+  # OVERWORLD - Neutral & Passive
   wolf:
-    - "🐺 {player} был разорван волком"
-    - "🌲 {player} стал добычей волка"
+    - "⚔ {player} was torn apart by a wolf"
+    - "♣ {player} became prey to a wolf"
 
   bee:
-    - "🐝 {player} был ужален пчелой до смерти"
-    - "💛 {player} не пережил атаки пчёл"
+    - "✹ {player} was stung to death by a bee"
+    - "❀ {player} didn't survive the bee attack"
 
   iron_golem:
-    - "🛡️ {player} был размазан големом"
-    - "⚒️ {player} не пережил удара железного голема"
+    - "⚒ {player} was smashed by an iron golem"
+    - "⛓ {player} didn't survive the iron golem's strike"
 
   snow_golem:
-    - "⛄ {player} был заморожен снежным големом"
-    - "❄️ {player} погиб от рук снежного голема"
+    - "☃ {player} was frozen by a snow golem"
+    - "❄ {player} perished at the hands of a snow golem"
 
   polar_bear:
-    - "🐻‍❄️ {player} был растерзан полярным медведем"
-    - "❄️ {player} не пережил атаку белого медведя"
+    - "✦ {player} was mauled by a polar bear"
+    - "❄ {player} didn't survive the polar bear's attack"
 
   panda:
-    - "🐼 {player} был задавлен пандой"
-    - "🎍 {player} попал под раздачу панды"
+    - "❖ {player} was crushed by a panda"
+    - "♣ {player} got caught in a panda's rampage"
 
   llama:
-    - "🦙 {player} был обплёван ламой"
-    - "💧 {player} не пережил плевок ламы"
+    - "➹ {player} was spit on by a llama"
+    - "❈ {player} didn't survive the llama's spit"
 
   trader_llama:
-    - "🦙 {player} был атакован ламой торговца"
-    - "💨 {player} пал жертвой плевка торговой ламы"
+    - "➹ {player} was attacked by a trader's llama"
+    - "➜ {player} fell victim to the trader llama's spit"
 
   dolphin:
-    - "🐬 {player} был забит дельфином"
-    - "🌊 {player} не пережил нападение дельфина"
+    - "≈ {player} was beaten by a dolphin"
+    - "⚓ {player} didn't survive the dolphin's attack"
 
   goat:
-    - "🐐 {player} был сброшен козлом"
-    - "⛰️ {player} погиб после удара козла"
+    - "▲ {player} was knocked off by a goat"
+    - "⛰ {player} perished after a goat's ram"
 
   camel:
-    - "🐪 {player} был задавлен верблюдом"
-    - "🏜️ {player} не выдержал силы верблюда"
+    - "☼ {player} was crushed by a camel"
+    - "⌂ {player} couldn't withstand the camel's strength"
 
-  # ОСНОВНОЙ МИР - Враждебные
+  sulfur_cube:
+    - "☢ {player} was absorbed by a sulfur cube"
+    - "♨ {player} dissolved in a sulfur cube"
+
+  creaking:
+    - "✦ {player} was torn apart by a Creaking"
+    - "☾ {player} didn't survive the encounter with the Creaking"
+
+  # OVERWORLD - Hostile
   zombie:
-    - "🧟 {player} был съеден зомби"
-    - "🩸 {player} стал жертвой зомби"
+    - "☠ {player} was eaten by a zombie"
+    - "✖ {player} became a zombie's victim"
 
   zombie_villager:
-    - "🧟‍♂️ {player} был обращён в зомби-жителя"
-    - "🏚️ {player} стал добычей зомби-жителя"
+    - "☠ {player} was turned into a zombie villager"
+    - "⌂ {player} became prey to a zombie villager"
 
   drowned:
-    - "🌊 {player} был утоплен утопленником"
-    - "⚓ {player} пал жертвой утопленника"
+    - "⚓ {player} was drowned by a Drowned"
+    - "≈ {player} fell victim to a Drowned"
 
   husk:
-    - "🏜️ {player} был высушен кадавром (хаском)"
-    - "🌵 {player} не пережил нападение хаска"
+    - "☼ {player} was dried out by a Husk"
+    - "✵ {player} didn't survive the Husk's attack"
+
+  camel_husk:
+    - "☼ {player} was trampled by a Camel Husk"
+    - "⌂ {player} didn't survive the encounter with the Camel Husk"
+
+  parched:
+    - "☼ {player} was defeated by a Parched"
+    - "☀ {player} became a victim of the Parched"
 
   skeleton:
-    - "🏹 {player} был застрелен скелетом"
-    - "🎯 {player} не смог увернуться от скелета"
+    - "➶ {player} was shot by a Skeleton"
+    - "◎ {player} couldn't dodge the Skeleton"
 
   stray:
-    - "❄️ {player} был заморожен ледяным скелетом"
-    - "🏹 {player} не пережил стрелу зимогора"
+    - "❄ {player} was frozen by a Stray"
+    - "➶ {player} didn't survive the Stray's arrow"
 
   bogged:
-    - "🏹 {player} был пронзён стрелой болотного скелета"
-    - "💀 {player} пал от ядовитой стрелы болотника"
+    - "➶ {player} was pierced by a Bogged's arrow"
+    - "☠ {player} fell to a Bogged's poisoned arrow"
 
   creeper:
-    - "💥 {player} взорвался от крипера"
-    - "🌪️ {player} подорвался на крипере"
-    - "🌪️ {player} попатлася погалдить крипера"
+    - "✹ {player} was blown up by a Creeper"
+    - "✸ {player} got caught in a Creeper's blast"
+    - "✸ {player} tried to pet a Creeper"
 
   spider:
-    - "🕷️ {player} был съеден пауком"
-    - "🕸️ {player} попал в паутину смерти"
+    - "✶ {player} was eaten by a Spider"
+    - "✢ {player} got caught in a death web"
 
   cave_spider:
-    - "🕷️ {player} был отравлен пещерным пауком"
-    - "☠️ {player} пал от яда пещерного паука"
+    - "✶ {player} was poisoned by a Cave Spider"
+    - "☠ {player} fell to the Cave Spider's venom"
 
   silverfish:
-    - "🐟 {player} был загрызен чешуйницей"
-    - "🪨 {player} стал добычей чешуйницы"
+    - "✦ {player} was gnawed by a Silverfish"
+    - "◈ {player} became prey to a Silverfish"
 
   enderman:
-    - "🔮 {player} не смог убежать от эндермена"
-    - "🌌 {player} попал в лапы эндермена"
+    - "✧ {player} couldn't escape the Enderman"
+    - "✦ {player} fell into an Enderman's clutches"
 
   endermite:
-    - "🐛 {player} был съеден эндермитом"
-    - "💜 {player} стал жертвой эндермита"
+    - "✶ {player} was eaten by an Endermite"
+    - "✝ {player} became a victim of the Endermite"
 
   witch:
-    - "🧙 {player} был отравлен ведьмой"
-    - "⚗️ {player} пал от зелий ведьмы"
+    - "⚗ {player} was poisoned by a Witch"
+    - "✧ {player} fell to the Witch's potions"
 
   phantom:
-    - "👻 {player} был атакован фантомом"
-    - "🌙 {player} не спал три дня и поплатился"
+    - "☾ {player} was attacked by a Phantom"
+    - "✦ {player} didn't sleep for three days and paid the price"
 
   slime:
-    - "🟢 {player} был задавлен слаймом"
-    - "💚 {player} утонул в слайме"
+    - "◉ {player} was crushed by a Slime"
+    - "◌ {player} drowned in a Slime"
 
-  # РЕЙДЫ И ЛЕСНЫЕ ОСОБНЯКИ
+  # RAIDS & WOODLAND MANSIONS
   pillager:
-    - "🏹 {player} был застрелен разбойником"
-    - "💀 {player} стал жертвой засадного огня разбойника"
+    - "➶ {player} was shot by a Pillager"
+    - "☠ {player} fell to a Pillager's ambush"
 
   vindicator:
-    - "🪓 {player} был зарублен поборником"
-    - "⚔️ {player} пал от топора поборника"
+    - "⚒ {player} was axed by a Vindicator"
+    - "⚔ {player} fell to the Vindicator's axe"
 
   evoker:
-    - "🔮 {player} был уничтожен заклинателем"
-    - "🦅 {player} стал жертвой колдунства заклинателя"
+    - "✧ {player} was destroyed by an Evoker"
+    - "✦ {player} fell victim to the Evoker's sorcery"
 
   illusioner:
-    - "🌀 {player} был обманут и убит иллюзионистом"
-    - "✨ {player} не смог отличить реальность от иллюзии"
+    - "✺ {player} was tricked and killed by an Illusioner"
+    - "✧ {player} couldn't tell reality from illusion"
 
   vex:
-    - "😈 {player} был зарезан врединой"
-    - "🔪 {player} пал от клинка вредины"
+    - "✖ {player} was stabbed by a Vex"
+    - "† {player} fell to the Vex's blade"
 
   ravager:
-    - "🐂 {player} был растоптан разорителем"
-    - "💥 {player} пал под натиском разорителя"
+    - "✦ {player} was trampled by a Ravager"
+    - "✹ {player} fell under the Ravager's assault"
 
-  # НИЖНИЙ МИР (АД)
+  # NETHER
   blaze:
-    - "🔥 {player} был сожжен ифритом"
-    - "🌋 {player} не пережил встечу с ифритом"
+    - "♨ {player} was burned by a Blaze"
+    - "☀ {player} didn't survive the encounter with a Blaze"
 
   ghast:
-    - "👻 {player} был взорван гастом"
-    - "💥 {player} попал под огонь гаста"
+    - "✦ {player} was blown up by a Ghast"
+    - "✹ {player} got caught in a Ghast's fire"
 
   magma_cube:
-    - "🔴 {player} был сожжен магма-кубом"
-    - "🌋 {player} пал от магма-куба"
+    - "♨ {player} was burned by a Magma Cube"
+    - "☀ {player} fell to a Magma Cube"
 
   zombified_piglin:
-    - "🧟 {player} был убит зомби-пиглином"
-    - "🔥 {player} пал от зомбифицированного пиглина"
+    - "☠ {player} was killed by a Zombified Piglin"
+    - "♨ {player} fell to a Zombified Piglin"
 
   hoglin:
-    - "🐗 {player} был растоптан хоглином"
-    - "💥 {player} пал от атаки хоглина"
+    - "⚔ {player} was trampled by a Hoglin"
+    - "✹ {player} fell to a Hoglin's attack"
 
   zoglin:
-    - "🐗 {player} был растерзан зоглином"
-    - "💀 {player} пал от ярости зоглина"
+    - "☠ {player} was mauled by a Zoglin"
+    - "✖ {player} fell to a Zoglin's rage"
 
   piglin:
-    - "🐷 {player} был убит пиглином"
-    - "💔 {player} пал от руки пиглина"
+    - "⚔ {player} was killed by a Piglin"
+    - "✖ {player} fell at the hands of a Piglin"
 
   piglin_brute:
-    - "🔨 {player} был сокрушён брутальным пиглином"
-    - "💢 {player} не выдержал ударов пиглина-бурута"
+    - "⚒ {player} was crushed by a Piglin Brute"
+    - "✖ {player} couldn't withstand the Piglin Brute's blows"
 
   wither_skeleton:
-    - "💀 {player} был повержен визер-скелетом"
-    - "⚔️ {player} пал от рук визер-скелета"
+    - "☠ {player} was defeated by a Wither Skeleton"
+    - "⚔ {player} fell to a Wither Skeleton's hands"
 
-  # КРАЙ
+  # THE END
   guardian:
-    - "🐡 {player} был поражен лучом стража"
-    - "🔦 {player} попал под лазер стража"
+    - "✦ {player} was struck by a Guardian's beam"
+    - "✧ {player} got caught in a Guardian's laser"
 
   elder_guardian:
-    - "🐡 {player} был побежден древним стражем"
-    - "💫 {player} пал от магии древнего стража"
+    - "✦ {player} was defeated by an Elder Guardian"
+    - "✧ {player} fell to the Elder Guardian's magic"
 
   shulker:
-    - "📦 {player} был поражен шалкером"
-    - "🎯 {player} попал под стрелу шалкера"
+    - "◈ {player} was struck by a Shulker"
+    - "◎ {player} got hit by a Shulker's shell"
 
   ender_dragon:
-    - "🐉 {player} был побежден драконом края"
-    - "🌌 {player} не смог одолеть дракона края"
+    - "✦ {player} was defeated by the Ender Dragon"
+    - "✧ {player} couldn't defeat the Ender Dragon"
 
-  # БОССЫ И ОСОБЫЕ СУЩНОСТИ
+  # BOSSES & SPECIAL MOBS
   wither:
-    - "☠️ {player} был испепелён визером"
-    - "💀 {player} стал жертвой звукового взрыва визера"
+    - "☠ {player} was incinerated by the Wither"
+    - "✹ {player} fell to the Wither's explosion"
 
   warden:
-    - "🎧 {player} был уничтожен хранилищем (варденом)"
-    - "💢 {player} не пережил удар вардена"
+    - "✖ {player} was destroyed by a Warden"
+    - "✹ {player} didn't survive the Warden's strike"
 
   breeze:
-    - "💨 {player} был снесён ветром Бриза"
-    - "🌪️ {player} не устоял перед мощью Бриза"
+    - "➜ {player} was knocked back by a Breeze"
+    - "✦ {player} couldn't withstand the Breeze's power"
 
-  # СПЕЦИАЛЬНЫЕ АТАКИ
+  # SPECIAL ATTACKS
   evoker_fangs:
-    - "🦷 {player} был укушен зубами заклинателя"
-    - "⚡ {player} пал от магических когтей"
+    - "✖ {player} was bitten by an Evoker's fangs"
+    - "⚡ {player} fell to magical claws"
 
   guardian_beam:
-    - "🔦 {player} был испепелён лазером стража"
-    - "🐡 {player} пал от луча стража"
+    - "✧ {player} was incinerated by a Guardian's beam"
+    - "✦ {player} fell to a Guardian's laser"
 
-  # Смерть от окружающей среды
+  # Environmental deaths
   fall:
-    - "📉 {player} упал с большой высоты"
-    - "🏗️ {player} не рассчитал высоту"
-    - "📉 {player} решил проверить гравитацию"
+    - "▼ {player} fell from a great height"
+    - "▲ {player} didn't calculate the height"
+    - "▼ {player} decided to test gravity"
 
   fire:
-    - "🔥 {player} сгорел заживо"
-    - "🌋 {player} превратился в пепел"
+    - "♨ {player} burned to death"
+    - "☀ {player} turned to ashes"
+
+  fireball:
+    - "♨ {player} was burned by a fireball"
+    - "✹ {player} got a fiery gift"
+
+  dragon_fireball:
+    - "✦ {player} got caught in dragon's breath"
+    - "✹ {player} didn't survive the dragon's flames"
+
+  shulker_bullet:
+    - "◈ {player} was struck by a Shulker's shell"
+    - "◎ {player} couldn't dodge the Shulker"
+
+  wither_skull:
+    - "☠ {player} was hit by a Wither's skull"
+    - "✖ {player} was destroyed by the Wither"
+
+  wind_charge:
+    - "➜ {player} was knocked back by a wind charge"
+    - "✦ {player} flew too far"
 
   drowning:
-    - "🌊 {player} утонул"
-    - "💧 {player} разучился плавать"
+    - "≈ {player} drowned"
+    - "∼ {player} forgot how to swim"
 
   starvation:
-    - "🍖 {player} умер от голода"
-    - "🥩 {player} забыл поесть"
+    - "✖ {player} starved to death"
+    - "☹ {player} forgot to eat"
 
   magic:
-    - "🔮 {player} был уничтожен магией"
-    - "⚡ {player} пал от колдовства"
+    - "✧ {player} was destroyed by magic"
+    - "⚡ {player} fell to sorcery"
 
   contact:
-    - "🌵 {player} наткнулся на шипы"
-    - "💥 {player} дообнимался с колючкой"
+    - "✵ {player} ran into thorns"
+    - "✹ {player} hugged a cactus"
 
   suffocation:
-    - "🧱 {player} задохнулся в блоке"
-    - "💨 {player} разучился дышать"
+    - "■ {player} suffocated in a block"
+    - "✖ {player} forgot how to breathe"
 
   explosion:
-    - "💥 {player} взорвался"
-    - "🌪️ {player} попал под взрыв"
+    - "✹ {player} exploded"
+    - "✸ {player} got caught in a blast"
 
   lightning:
-    - "⚡ {player} был поражен молнией"
-    - "🌩️ {player} привлек внимание Зевса"
+    - "⚡ {player} was struck by lightning"
+    - "☈ {player} caught Zeus's attention"
+
+  freeze:
+    - "❄ {player} froze to death"
+    - "☃ {player} turned into an icicle"
+
+  fly_into_wall:
+    - "✖ {player} experienced kinetic energy"
+    - "✈ {player} couldn't handle the elytra"
+
+  cramming:
+    - "◈ {player} was crushed by cramming"
+    - "✖ {player} realized space was too tight"
+
+  dry_out:
+    - "☀ {player} dried out"
+    - "♨ {player} was without water for too long"
+
+  hot_floor:
+    - "♨ {player} was burned by magma"
+    - "☀ {player} danced on a magma block"
+
+  sonic_boom:
+    - "✹ {player} was destroyed by a sonic boom"
+    - "✖ {player} didn't survive the Warden's roar"
+
+  outside_border:
+    - "✖ {player} tried to leave the world border"
+    - "✧ {player} found the edge of the world"
+
+  kill:
+    - "☠ {player} was instantly destroyed"
+    - "⚡ {player} disappeared without explanation"
+
+  world_border:
+    - "✖ {player} hit the world border"
+    - "✧ {player} couldn't leave the world limits"

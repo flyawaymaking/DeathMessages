@@ -1,115 +1,110 @@
 # DeathMessages
 
-DeathMessages — лёгкий плагин для Minecraft 1.21+ (Paper), который улучшает сообщения о смерти игроков.
-Он показывает кастомные тексты смерти, координаты места гибели и добавляет кнопку [✨ Вернуться] для игроков с разрешением deathmessages.dback.
+DeathMessages is a lightweight Minecraft 1.20+ (Paper) plugin that enhances player death messages. It displays custom death messages, death coordinates, and adds a `[✨ Back]` button for players with the `deathmessages.dback` permission.
 
----
+* Русский перевод конфига расположен [ЗДЕСЬ](/src/main/resources/ru_config.yml)
 
-## Возможности
+## Requirements
 
-- Кастомные сообщения о смерти (игроки, мобы, падения, огонь и т.д.)
-- Отображение координат смерти игрока
-- Кнопка [✨ Вернуться] для игроков с permission `deathmessages.dback`
-- Перезагрузка конфига через `/deathmessages reload`
-- Фолбэк на стандартное сообщение Minecraft, если кастомное не найдено
+- Minecraft Paper 1.20+ (except 1.20.5)
+- Java 25
 
----
+> The last version compatible with Java 21 is 1.3.1
 
-## Конфигурация (config.yml)
+## Features
+
+- Custom death messages (players, mobs, fall damage, fire, etc.)
+- Displays death coordinates to the player
+- `[✨ Back]` button for players with the `deathmessages.dback` permission
+- Config reload via `/deathmessages reload`
+- Falls back to the default Minecraft message if no custom message is found
+
+## Configuration (config.yml)
 
 ```yaml
 settings:
-  # Показывать координаты смерти игроку
+  # Show death coordinates to the player
   show-death-coordinates: true
-  # Показывать кнопку возврата к месту смерти
+  # Show the back-to-deathpoint button
   show-back-button: true
 
 messages:
   prefix: "<gray>[💀]</gray>"
   reload:
-    no-permission: "<red>У вас нет прав для этой команды!"
-    success: "<green>Конфиг DeathMessages перезагружен!"
-    usage: "<yellow>Использование: /deathmessages reload"
+    no-permission: "<red>You don't have permission to use this command!"
+    success: "<green>DeathMessages config reloaded!"
+    usage: "<yellow>Usage: /deathmessages reload"
   deathback:
-    invalid: "<red>Точка смерти не найдена!"
-    success: "<green>Вы были телепортированы к месту смерти!"
-  personal-message: "<red>Координаты смерти: <yellow>X: {x} Y: {y} Z: {z}"
-  back-button: "<green><bold>[✨ ВЕРНУТЬСЯ]</bold></green>"
-  back-hover: "<yellow>Нажмите чтобы вернуться к месту смерти"
+    invalid: "<red>Death point not found!"
+    success: "<green>You have been teleported to your death point!"
+  personal-message: "<red>Death coordinates: <yellow>X: {x} Y: {y} Z: {z}"
+  back-button: "<green><bold>[✨ BACK]</bold></green>"
+  back-hover: "<yellow>Click to return to your death point"
 
-# Сообщения о смерти игрока
+# Player death messages
 death-messages:
   prefix: "<gray>"
-  # Смерть от другого игрока
-  # Доступные плейсхолдеры: {player}, {killer}, {killer_health}
+  # Death by another player
+  # Available placeholders: {player}, {killer}, {killer_health}
   player:
-    - "⚔️ {player} был повержен игроком {killer} [<red>❤</red>{killer_health}]"
-    - "🎯 {player} пал от руки {killer} [<red>❤</red>{killer_health}]"
-    - "⚡ {player} был убит игроком {killer} [<red>❤</red>{killer_health}]"
-    - "💥 {player} проиграл дуэль против {killer} [<red>❤</red>{killer_health}]"
-# ... другие типы смерти ...
+    - "⚔️ {player} was slain by {killer} [<red>❤</red>{killer_health}]"
+    - "🎯 {player} fell to {killer} [<red>❤</red>{killer_health}]"
+    - "⚡ {player} was killed by {killer} [<red>❤</red>{killer_health}]"
+    - "💥 {player} lost a duel against {killer} [<red>❤</red>{killer_health}]"
+
+  # OVERWORLD - Neutral & Passive
+  wolf:
+    - "⚔ {player} was torn apart by a wolf"
+    - "♣ {player} became prey to a wolf"
+# ... other death types ...
 ```
 
-Поддерживаемые переменные в сообщениях:
+Supported placeholders in messages:
 
-- `{player}` — имя умершего игрока
-- `{killer}` — имя убийцы (игрока)
-- `{killer_health}` — оставшееся здоровье убийцы (игрока)
+- `{player}` — name of the deceased player
+- `{killer}` — name of the killer (player)
+- `{killer_health}` — remaining health of the killer (player)
 
-> Если для типа смерти не найдено сообщение, плагин использует стандартное сообщение Minecraft.
+> If no message is found for a death type, the plugin will use Minecraft's default death message.
 
----
+## In-Game Example
 
-## Пример в игре
-
-**Общее сообщение для всех игроков:**
+**Public message (broadcast):**
 
 ```
-💥 Player взорвался от крипера
+💥 Player was blown up by a Creeper
 ```
 
-**Личное сообщение игроку:**
+**Private message to the player:**
 
 ```
-💀 Координаты смерти: X: 124 Y: 68 Z: -32
-```
-**Личное сообщение игроку с правом `deathmessages.dback`:**
-
-```
-💀 Координаты смерти: X: 124 Y: 68 Z: -32
-[✨ ВЕРНУТЬСЯ]
+💀 Death coordinates: X: 124 Y: 68 Z: -32
 ```
 
-> Нажав на кнопку, игрок телепортируется на место смерти.
+**Private message to the player with `deathmessages.dback` permission:**
 
----
+```
+💀 Death coordinates: X: 124 Y: 68 Z: -32
+[✨ BACK]
+```
 
-## Команды и права
+> Clicking the button teleports the player back to their death location.
 
-- `/deathmessages reload` — перезагрузка конфига 
+## Commands & Permissions
+
+- `/deathmessages reload` — reloads the config  
   (permission: `deathmessages.reload`)
 
-- Разрешение `deathmessages.dback` — отображает кнопку [✨ Вернуться] после смерти
+- `deathmessages.dback` permission — displays the `[✨ Back]` button after death
 
----
+## Installation
 
-## Требования
+1. Download the **latest release** from the [Releases](../../releases) section
+2. Place it into your `/plugins` folder
+3. Restart the server
+4. Configure `config.yml` if needed
+5. Use `/deathmessages reload` to apply changes without a restart
 
-- Minecraft Paper 1.20+ (кроме 1.20.5)
-- Java 21
+## 📄 License
 
----
-
-## Установка
-
-1. Скачайте **последний релиз** из раздела [Releases](../../releases)
-2. Поместите его в папку `/plugins`
-3. Перезапустите сервер
-4. Настройте `config.yml` при необходимости
-5. Используйте `/deathmessages reload`, чтобы применить изменения без перезапуска
-
----
-
-## 📄 Лицензия
-
-Плагин распространяется под лицензией MIT.
+This plugin is distributed under the MIT License.
