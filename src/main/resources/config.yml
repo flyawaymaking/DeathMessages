@@ -89,6 +89,10 @@ death-messages:
     - "☠ {player} was eaten by a zombie"
     - "✖ {player} became a zombie's victim"
 
+  zombie_nautilus:
+    - "☠ {player} was torn apart by a Zombie Nautilus"
+    - "≈ {player} fell victim to a Zombie Nautilus"
+
   zombie_villager:
     - "☠ {player} was turned into a zombie villager"
     - "⌂ {player} became prey to a zombie villager"
