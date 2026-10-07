@@ -8,7 +8,7 @@ DeathMessages is a lightweight Minecraft 1.20+ (Paper) plugin that enhances play
 
 | **Plugin version** | **Supported Paper** | **Java** |
 |--------------------|---------------------|----------|
-| `1.4.1`            | `1.20` – `26.2`     | 25       |
+| `1.4.1+`           | `1.20` – `26.3`     | 25       |
 | `1.3.1`            | `1.20` – `1.21.11`  | 21       |
 
 ## Features
