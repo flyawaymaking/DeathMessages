@@ -54,6 +54,11 @@ death-messages:
     - "⚡ {player} was killed by {killer} [<red>❤</red>{killer_health}]"
     - "💥 {player} lost a duel against {killer} [<red>❤</red>{killer_health}]"
 
+  # Additional placeholder: {weapon}
+  player-weapon:
+    - "⚔️ {player} was defeated by {killer} [<red>❤</red>{killer_health}] using {weapon}"
+    - "💥 {player} fell to {killer} with {weapon} [<red>❤</red>{killer_health}]"
+
   # OVERWORLD - Neutral & Passive
   wolf:
     - "⚔ {player} was torn apart by a wolf"

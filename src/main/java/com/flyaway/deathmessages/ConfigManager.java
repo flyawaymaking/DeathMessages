@@ -3,11 +3,15 @@ package com.flyaway.deathmessages;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStreamReader;
@@ -140,27 +144,63 @@ public class ConfigManager {
         };
     }
 
-    public Component getRandomDeathMessage(String deathType, Player player, Player killer) {
-        List<String> messages = deathMessages.get(deathType);
-
-        if (messages == null || messages.isEmpty()) {
-            return miniMessage.deserialize(deathPrefix + "<player> died",
-                    Placeholder.component("player", getPlayerNameComponent(player)));
+    private boolean isWeapon(ItemStack item) {
+        if (item == null || item.getType().isAir()) {
+            return false;
         }
 
-        String message = messages.get(random.nextInt(messages.size()));
+        Material type = item.getType();
+        String name = type.name();
+
+        return name.endsWith("_SWORD") || name.endsWith("_AXE") || name.endsWith("_SPEAR") || switch (type) {
+            case BOW, CROSSBOW, TRIDENT, MACE -> true;
+            default -> false;
+        };
+    }
+
+    private boolean hasCustomName(ItemStack item) {
+        if (item == null || item.getType().isAir()) {
+            return false;
+        }
+
+        ItemMeta meta = item.getItemMeta();
+
+        return meta != null && meta.hasCustomName();
+    }
+
+    public Component getRandomDeathMessage(String deathType, Player player, Player killer) {
+        ItemStack weapon = killer != null ? killer.getInventory().getItemInMainHand() : null;
+
+        boolean weaponDeath = killer != null && (isWeapon(weapon) || hasCustomName(weapon));
+
+        if (weaponDeath && deathType.equals("player") && hasDeathMessage("player-weapon")) {
+            deathType = "player-weapon";
+        }
+
+        List<String> messages = deathMessages.get(deathType);
+        String message = messages == null || messages.isEmpty() ? "<player> died" : messages.get(
+                random.nextInt(messages.size()));
+
+        message = message.replace("{player}", "<player>");
+
+        List<TagResolver.Single> placeholders = new ArrayList<>();
+
+        placeholders.add(Placeholder.component("player", getPlayerNameComponent(player)));
 
         if (killer != null) {
-            String health = String.format(Locale.ROOT, "%.1f", killer.getHealth());
+            message = message.replace("{killer}", "<killer>").replace("{killer_health}", "<killer_health>");
 
-            return miniMessage.deserialize(deathPrefix + message,
-                    Placeholder.component("player", getPlayerNameComponent(player)),
-                    Placeholder.component("killer", getPlayerNameComponent(killer)),
-                    Placeholder.unparsed("killer_health", health));
+            placeholders.add(Placeholder.component("killer", getPlayerNameComponent(killer)));
+            placeholders.add(
+                    Placeholder.unparsed("killer_health", String.format(Locale.ROOT, "%.1f", killer.getHealth())));
+
+            if (weaponDeath) {
+                message = message.replace("{weapon}", "<weapon>");
+                placeholders.add(Placeholder.component("weapon", weapon.displayName()));
+            }
         }
 
-        return miniMessage.deserialize(deathPrefix + message,
-                Placeholder.component("player", getPlayerNameComponent(player)));
+        return miniMessage.deserialize(deathPrefix + message, placeholders.toArray(new TagResolver[0]));
     }
 
     public boolean showDeathCoordinates() {

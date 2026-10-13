@@ -33,6 +33,11 @@ death-messages:
     - "⚡ {player} был убит игроком {killer} [<red>❤</red>{killer_health}]"
     - "💥 {player} проиграл дуэль против {killer} [<red>❤</red>{killer_health}]"
 
+  # Дополнительный плейсхолдер: {weapon}
+  player-weapon:
+    - "⚔️ {player} был повержен игроком {killer} [<red>❤</red>{killer_health}] с помощью {weapon}"
+    - "💥 {player} пал от рук {killer} с помощью {weapon} [<red>❤</red>{killer_health}]"
+
   # ОСНОВНОЙ МИР - Нейтральные и пассивные
   wolf:
     - "⚔ {player} был разорван волком"
