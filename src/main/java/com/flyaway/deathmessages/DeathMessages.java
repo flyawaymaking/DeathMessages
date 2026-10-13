@@ -21,6 +21,6 @@ public class DeathMessages extends JavaPlugin {
         if (playerListener != null) {
             playerListener.onDisable();
         }
-        getLogger().info("DeathMessages выключен!");
+        getLogger().info("DeathMessages disabled!");
     }
 }

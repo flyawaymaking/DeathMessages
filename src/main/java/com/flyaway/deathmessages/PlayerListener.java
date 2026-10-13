@@ -36,12 +36,8 @@ public class PlayerListener implements Listener {
     }
 
     private void startCleanupTask() {
-        this.cleanupTask = Bukkit.getScheduler().runTaskTimer(
-                plugin,
-                this::cleanupAllExpiredDeaths,
-                20L * 60,
-                20L * 60
-        );
+        this.cleanupTask = Bukkit.getScheduler().runTaskTimer(plugin, this::cleanupAllExpiredDeaths, 20L * 60,
+                20L * 60);
     }
 
     public void onDisable() {
@@ -63,11 +59,7 @@ public class PlayerListener implements Listener {
             event.deathMessage(null);
             Player killer = getKiller(event);
 
-            Component broadcast = configManager.getRandomDeathMessage(
-                    deathType,
-                    player.getName(),
-                    killer
-            );
+            Component broadcast = configManager.getRandomDeathMessage(deathType, player, killer);
             Bukkit.broadcast(broadcast);
         }
 
@@ -153,8 +145,8 @@ public class PlayerListener implements Listener {
             String backButton = configManager.getMessage("back-button", placeholders);
             String backHover = configManager.getMessage("back-hover", placeholders);
 
-            Component button = miniMessage.deserialize(backButton)
-                    .clickEvent(ClickEvent.runCommand("/deathback " + deathId));
+            Component button = miniMessage.deserialize(backButton).clickEvent(
+                    ClickEvent.runCommand("/deathback " + deathId));
 
             if (!backHover.isEmpty()) {
                 button = button.hoverEvent(miniMessage.deserialize(backHover));
@@ -168,9 +160,7 @@ public class PlayerListener implements Listener {
 
     private String storeDeathPoint(Player player, Location loc) {
         String deathId = generateDeathId();
-        deathPoints
-                .computeIfAbsent(player.getUniqueId(), k -> new HashMap<>())
-                .put(deathId, new DeathPoint(loc));
+        deathPoints.computeIfAbsent(player.getUniqueId(), k -> new HashMap<>()).put(deathId, new DeathPoint(loc));
         return deathId;
     }
 
@@ -183,16 +173,13 @@ public class PlayerListener implements Listener {
     private void cleanupAllExpiredDeaths() {
         long now = System.currentTimeMillis();
 
-        Iterator<Map.Entry<UUID, Map<String, DeathPoint>>> playerIterator =
-                deathPoints.entrySet().iterator();
+        Iterator<Map.Entry<UUID, Map<String, DeathPoint>>> playerIterator = deathPoints.entrySet().iterator();
 
         while (playerIterator.hasNext()) {
             Map.Entry<UUID, Map<String, DeathPoint>> entry = playerIterator.next();
             Map<String, DeathPoint> points = entry.getValue();
 
-            points.entrySet().removeIf(e ->
-                    now - e.getValue().getCreatedAt() > DEATH_TTL
-            );
+            points.entrySet().removeIf(e -> now - e.getValue().getCreatedAt() > DEATH_TTL);
 
             if (points.isEmpty()) {
                 playerIterator.remove();

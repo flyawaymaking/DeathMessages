@@ -4,22 +4,22 @@ main: ${group}.${name}
 api-version: 1.21
 author: FlyAwayMaking
 website: https://github.com/flyawaymaking
-description: Показывает координаты смерти игрока и редактирует сообщения о смерти
+description: Shows the player's death coordinates and edits death messages
 
 commands:
   deathmessages:
-    description: Управление плагином DeathMessages
+    description: Manage the DeathMessages plugin
     usage: /<command> reload
 
   deathback:
-    description: Телепортация к месту смерти
+    description: Teleport to the place of death
     usage: /<command> <deathId>
 
 permissions:
   deathmessages.reload:
-    description: Перезагрузка конфига плагина
+    description: Reload the plugin config
     default: op
 
   deathmessages.dback:
-    description: Возможность использовать телепортацию к месту смерти
+    description: Ability to use teleportation to the place of death
     default: true

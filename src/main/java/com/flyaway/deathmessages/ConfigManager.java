@@ -14,8 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class ConfigManager {
-    private static final int CURRENT_CONFIG_VERSION = 1;
-
     private final DeathMessages plugin;
     private FileConfiguration config;
     private final Random random = new Random();
@@ -33,12 +31,15 @@ public class ConfigManager {
         plugin.saveDefaultConfig();
         config = plugin.getConfig();
 
-        int version = config.getInt("config-version", 0);
-        if (version < CURRENT_CONFIG_VERSION) {
-            plugin.getLogger().info("Обновление config.yml с версии " + version + " до " + CURRENT_CONFIG_VERSION);
-            FileConfiguration defaultConfig = loadDefaultConfig();
+        FileConfiguration defaultConfig = loadDefaultConfig();
+        int defaultVersion = defaultConfig.getInt("config-version", 0);
+        int currentVersion = config.getInt("config-version", 0);
+
+        if (currentVersion < defaultVersion) {
+            plugin.getLogger().info("Updating config.yml from version " + currentVersion + " to " + defaultVersion);
+
             mergeSection(defaultConfig, config);
-            config.set("config-version", CURRENT_CONFIG_VERSION);
+            config.set("config-version", defaultVersion);
             plugin.saveConfig();
         }
 
@@ -49,12 +50,11 @@ public class ConfigManager {
 
     private FileConfiguration loadDefaultConfig() {
         YamlConfiguration defaultConfig = new YamlConfiguration();
-        try (InputStreamReader reader = new InputStreamReader(
-                Objects.requireNonNull(plugin.getResource("config.yml")), StandardCharsets.UTF_8)
-        ) {
+        try (InputStreamReader reader = new InputStreamReader(Objects.requireNonNull(plugin.getResource("config.yml")),
+                StandardCharsets.UTF_8)) {
             defaultConfig.load(reader);
         } catch (Exception e) {
-            plugin.getLogger().severe("Не удалось загрузить дефолтный config.yml");
+            plugin.getLogger().severe("Failed to load default config.yml");
         }
         return defaultConfig;
     }
@@ -93,7 +93,7 @@ public class ConfigManager {
             }
         }
 
-        plugin.getLogger().info("Загружено " + deathMessages.size() + " типов сообщений о смерти");
+        plugin.getLogger().info("Loaded " + deathMessages.size() + " death messages types");
     }
 
     public @NotNull String getMessage(String key, Map<String, String> placeholders) {
@@ -131,15 +131,15 @@ public class ConfigManager {
         return deathMessages.containsKey(deathType) && !deathMessages.get(deathType).isEmpty();
     }
 
-    public Component getRandomDeathMessage(String deathType, String playerName, Player killer) {
+    public Component getRandomDeathMessage(String deathType, Player player, Player killer) {
         List<String> messages = deathMessages.get(deathType);
 
         if (messages == null || messages.isEmpty()) {
-            return miniMessage.deserialize(deathPrefix + playerName + " died");
+            return miniMessage.deserialize(deathPrefix + player.getName() + " died");
         }
 
         String message = messages.get(random.nextInt(messages.size()));
-        message = message.replace("{player}", playerName);
+        message = message.replace("{player}", player.getName());
 
         if (killer != null) {
             String healthStr = String.format("%.1f", killer.getHealth());
