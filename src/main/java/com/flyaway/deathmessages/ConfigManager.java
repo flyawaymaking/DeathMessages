@@ -2,6 +2,7 @@ package com.flyaway.deathmessages;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.ConfigurationSection;
@@ -131,23 +132,35 @@ public class ConfigManager {
         return deathMessages.containsKey(deathType) && !deathMessages.get(deathType).isEmpty();
     }
 
+    private Component getPlayerNameComponent(Player player) {
+        return switch (config.getString("settings.player-name-format", "name").toLowerCase(Locale.ROOT)) {
+            case "display-name" -> player.displayName();
+            case "team-display-name" -> player.teamDisplayName();
+            default -> Component.text(player.getName());
+        };
+    }
+
     public Component getRandomDeathMessage(String deathType, Player player, Player killer) {
         List<String> messages = deathMessages.get(deathType);
 
         if (messages == null || messages.isEmpty()) {
-            return miniMessage.deserialize(deathPrefix + player.getName() + " died");
+            return miniMessage.deserialize(deathPrefix + "<player> died",
+                    Placeholder.component("player", getPlayerNameComponent(player)));
         }
 
         String message = messages.get(random.nextInt(messages.size()));
-        message = message.replace("{player}", player.getName());
 
         if (killer != null) {
-            String healthStr = String.format("%.1f", killer.getHealth());
+            String health = String.format(Locale.ROOT, "%.1f", killer.getHealth());
 
-            message = message.replace("{killer}", killer.getName()).replace("{killer_health}", healthStr);
+            return miniMessage.deserialize(deathPrefix + message,
+                    Placeholder.component("player", getPlayerNameComponent(player)),
+                    Placeholder.component("killer", getPlayerNameComponent(killer)),
+                    Placeholder.unparsed("killer_health", health));
         }
 
-        return miniMessage.deserialize(deathPrefix + message);
+        return miniMessage.deserialize(deathPrefix + message,
+                Placeholder.component("player", getPlayerNameComponent(player)));
     }
 
     public boolean showDeathCoordinates() {

@@ -27,6 +27,8 @@ settings:
   show-death-coordinates: true
   # Show the back-to-deathpoint button
   show-back-button: true
+  # Player name format: name, display-name, team-display-name
+  player-name-format: display-name
 
 messages:
   prefix: "<gray>[💀]</gray>"

@@ -1,11 +1,13 @@
 # Не изменяйте это значение!
-config-version: 2
+config-version: 3
 
 settings:
   # Показывать координаты смерти игроку
   show-death-coordinates: true
   # Показывать кнопку возврата к месту смерти
   show-back-button: true
+  # Формат имени игрока: name, display-name, team-display-name
+  player-name-format: display-name
 
 messages:
   prefix: "<gray>[💀]</gray>"
