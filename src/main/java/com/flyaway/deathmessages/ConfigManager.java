@@ -149,13 +149,15 @@ public class ConfigManager {
             return false;
         }
 
-        Material type = item.getType();
-        String name = type.name();
+        String name = item.getType().name();
 
-        return name.endsWith("_SWORD") || name.endsWith("_AXE") || name.endsWith("_SPEAR") || switch (type) {
-            case BOW, CROSSBOW, TRIDENT, MACE -> true;
-            default -> false;
-        };
+        return name.endsWith("_SWORD")
+                || name.endsWith("_AXE")
+                || name.endsWith("_SPEAR")
+                || name.equals("BOW")
+                || name.equals("CROSSBOW")
+                || name.equals("TRIDENT")
+                || name.equals("MACE");
     }
 
     private boolean hasCustomName(ItemStack item) {
@@ -165,7 +167,7 @@ public class ConfigManager {
 
         ItemMeta meta = item.getItemMeta();
 
-        return meta != null && meta.hasCustomName();
+        return meta != null && meta.hasDisplayName();
     }
 
     public Component getRandomDeathMessage(String deathType, Player player, Player killer) {
