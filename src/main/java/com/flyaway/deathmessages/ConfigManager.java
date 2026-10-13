@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStreamReader;
@@ -15,6 +16,9 @@ import java.util.*;
 
 public class ConfigManager {
     private static final int CURRENT_CONFIG_VERSION = 1;
+    private static final String PLAYER_DEATH = "player";
+    /** Used instead of {@link #PLAYER_DEATH} when the killer holds an item. */
+    private static final String PLAYER_WEAPON_DEATH = "player_weapon";
 
     private final DeathMessages plugin;
     private FileConfiguration config;
@@ -131,23 +135,33 @@ public class ConfigManager {
         return deathMessages.containsKey(deathType) && !deathMessages.get(deathType).isEmpty();
     }
 
-    public Component getRandomDeathMessage(String deathType, String playerName, Player killer) {
-        List<String> messages = deathMessages.get(deathType);
+    public Component getRandomDeathMessage(String deathType, Player victim, Player killer) {
+        ItemStack weapon = killer == null ? null : killer.getInventory().getItemInMainHand();
+        boolean armed = weapon != null && !weapon.isEmpty();
+        if (armed && PLAYER_DEATH.equals(deathType) && hasDeathMessage(PLAYER_WEAPON_DEATH)) {
+            deathType = PLAYER_WEAPON_DEATH;
+        }
 
+        Map<String, Component> placeholders = new HashMap<>();
+        placeholders.put("player", Component.text(victim.getName()));
+        placeholders.put("player_display", victim.teamDisplayName());
+
+        List<String> messages = deathMessages.get(deathType);
         if (messages == null || messages.isEmpty()) {
-            return miniMessage.deserialize(deathPrefix + playerName + " died");
+            return DeathMessageFormatter.format(miniMessage, deathPrefix + "{player} died", placeholders);
+        }
+
+        if (killer != null) {
+            placeholders.put("killer", Component.text(killer.getName()));
+            placeholders.put("killer_display", killer.teamDisplayName());
+            placeholders.put("killer_health", Component.text(String.format("%.1f", killer.getHealth())));
+            if (armed) {
+                placeholders.put("weapon", weapon.displayName());
+            }
         }
 
         String message = messages.get(random.nextInt(messages.size()));
-        message = message.replace("{player}", playerName);
-
-        if (killer != null) {
-            String healthStr = String.format("%.1f", killer.getHealth());
-
-            message = message.replace("{killer}", killer.getName()).replace("{killer_health}", healthStr);
-        }
-
-        return miniMessage.deserialize(deathPrefix + message);
+        return DeathMessageFormatter.format(miniMessage, deathPrefix + message, placeholders);
     }
 
     public boolean showDeathCoordinates() {

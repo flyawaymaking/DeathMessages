@@ -65,7 +65,7 @@ public class PlayerListener implements Listener {
 
             Component broadcast = configManager.getRandomDeathMessage(
                     deathType,
-                    player.getName(),
+                    player,
                     killer
             );
             Bukkit.broadcast(broadcast);

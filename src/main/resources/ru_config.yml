@@ -23,8 +23,11 @@ messages:
 # Сообщения о смерти игрока
 death-messages:
   prefix: "<gray>"
+  # Во всех сообщениях доступны {player} и {player_display} (ник с префиксом, суффиксом и цветом команды scoreboard).
   # Смерть от другого игрока
-  # Доступные плейсхолдеры: {player}, {killer}, {killer_health}
+  # Доступные плейсхолдеры: {player}, {player_display}, {killer}, {killer_display}, {killer_health}
+  # Добавьте список "player_weapon", чтобы использовать его вместо "player", когда убийца держит предмет;
+  # в нём также доступен {weapon}: название предмета в чате с подсказкой при наведении, включая переименование.
   player:
     - "⚔️ {player} был повержен игроком {killer} [<red>❤</red>{killer_health}]"
     - "🎯 {player} пал от руки {killer} [<red>❤</red>{killer_health}]"

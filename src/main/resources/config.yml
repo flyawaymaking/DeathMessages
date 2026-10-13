@@ -23,8 +23,11 @@ messages:
 # Player death messages
 death-messages:
   prefix: "<gray>"
+  # Every message accepts {player} and {player_display} (name with scoreboard team prefix, suffix and color).
   # Death by another player
-  # Available placeholders: {player}, {killer}, {killer_health}
+  # Available placeholders: {player}, {player_display}, {killer}, {killer_display}, {killer_health}
+  # Add a "player_weapon" list to use it instead of "player" when the killer holds an item;
+  # it also accepts {weapon}: the item's chat name with its tooltip on hover, custom name included.
   player:
     - "⚔️ {player} was slain by {killer} [<red>❤</red>{killer_health}]"
     - "🎯 {player} fell to {killer} [<red>❤</red>{killer_health}]"

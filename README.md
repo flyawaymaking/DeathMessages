@@ -64,6 +64,10 @@ Supported placeholders in messages:
 - `{player}` — name of the deceased player
 - `{killer}` — name of the killer (player)
 - `{killer_health}` — remaining health of the killer (player)
+- `{player_display}` — name of the deceased player with their scoreboard team prefix, suffix and color
+- `{killer_display}` — name of the killer with their scoreboard team prefix, suffix and color
+- `{weapon}` — item held by the killer, as shown in chat (custom name included), with its tooltip on hover;
+  only in the optional `player_weapon` list, used instead of `player` when the killer holds an item
 
 > If no message is found for a death type, the plugin will use Minecraft's default death message.
 
