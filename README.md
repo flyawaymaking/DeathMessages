@@ -1,5 +1,8 @@
 # DeathMessages
 
+[![Modrinth Downloads](https://img.shields.io/modrinth/dt/deathmessagesplugin?logo=modrinth&label=downloads&color=1bd96a)](https://modrinth.com/plugin/deathmessagesplugin)
+[![Modrinth Followers](https://img.shields.io/modrinth/followers/deathmessagesplugin?logo=modrinth&label=followers&color=1bd96a)](https://modrinth.com/plugin/deathmessagesplugin)
+
 DeathMessages is a lightweight Minecraft 1.20+ (Paper) plugin that enhances player death messages. It displays custom death messages, death coordinates, and adds a `[✨ Back]` button for players with the `deathmessages.dback` permission.
 
 * Русский перевод конфига расположен [ЗДЕСЬ](/src/main/resources/ru_config.yml)
